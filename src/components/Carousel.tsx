@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[],
+  // step: number,
+  frameSize: number,
+  itemWidth: number,
+  // animationDuration: number,
+  // infinite: boolean,
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+export const Carousel: React.FC<Props> = ({
+  images,
+  // step,
+  frameSize,
+  itemWidth,
+  // animationDuration,
+  // infinite,
+}) => {
+  const listStyles: CSSProperties = {
+    width: `${itemWidth * frameSize}px`,
+  };
 
-export default Carousel;
+  const itemStyles: CSSProperties = {
+    width: `${itemWidth}px`,
+  };
+
+  return (
+    <div className="carousel">
+      <ul className="carousel__list" style={listStyles}>
+        {images.map(image => (
+          <li className="carousel__item" style={itemStyles}>
+            <img src={image} alt={image} />
+          </li>
+        ))}
+      </ul>
+
+      <div className="carousel__buttons">
+        <button type="button">Prev</button>
+        <button type="button">Next</button>
+      </div>
+    </div>
+  );
+};
